@@ -325,6 +325,12 @@
         <button class="play-btn" data-url="https://hianime.to">Open</button>
       </div>
 
+      <div class="game-card">
+        <h3>Discord</h3>
+        <p>Discord is a voice, video, and text communication platform used by over two hundred million people to hang out and play games with their friends.</p>
+        <button class="play-btn new-tab-discord">Open in new tab</button>
+      </div>
+      
     </div>
   </div>
 
@@ -410,7 +416,46 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.append(iframe, exitBtn);
     });
   });
+  document.querySelectorAll('.new-tab-discord').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = window.open("about:blank", "_blank");
+  
+      if (!tab) {
+        alert("Popup blocked! Please allow popups for this site.");
+        return;
+      }
+  
+      tab.document.write(`
+        <html>
+          <head>
+            <title>Discord Canary</title>
+            <style>
+              body {
+                margin: 0;
+                overflow: hidden;
+                background: #000;
+              }
+              iframe {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                border: none;
+              }
+            </style>
+          </head>
+          <body>
+            <iframe src="https://canary.discord.com/channels/@me"></iframe>
+          </body>
+        </html>
+      `);
+  
+      tab.document.close();
+    });
+  });
 });
+
 </script>
 
 </body>
